@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodSnap AI - Генератор рецептов</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.svg') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>FoodSnap AI</h1>
+            <p class="subtitle">Генератор рецептов и контента для кулинарных блогеров</p>
+        </header>
+
+        <main>
+            <!-- Область ввода ингредиентов -->
+            <div class="upload-section" id="uploadSection">
+                <div class="upload-area">
+                    <div class="upload-icon">📝</div>
+                    <h3>Введите ваши ингредиенты</h3>
+                    <p>Перечислите продукты через запятую, и AI создаст рецепты</p>
+                    
+                    <textarea 
+                        id="ingredientsInput" 
+                        placeholder="Например: курица, рис, болгарский перец, лук, помидоры, специи..." 
+                        style="width: 100%; height: 120px; padding: 15px; border: 1px solid #d2d2d7; border-radius: 12px; font-size: 16px; margin: 20px 0; resize: vertical; font-family: inherit;"
+                    ></textarea>
+                    <div class="examples-container">
+                    <p class="examples-label">Быстрые примеры:</p>
+                    <div class="examples-buttons">
+                        <button class="btn-secondary" onclick="fillExample(1)">Азиатская кухня</button>
+                        <button class="btn-secondary" onclick="fillExample(2)">Выпечка</button>
+                        <button class="btn-secondary" onclick="fillExample(3)">Грибное блюдо</button>
+                        <button class="btn-secondary" onclick="fillExample(4)">Салат</button>
+                    </div>
+                </div>
+                    <button class="btn-primary" onclick="analyzeIngredients()">
+                        Сгенерировать рецепты
+                    </button>
+                    <p style="color: #86868b; font-size: 0.8rem; margin-top: 10px;">
+                        💡 Совет: Используйте Ctrl+Enter для быстрой отправки
+                    </p>
+                </div>
+            </div>
+
+            <!-- Прелоадер -->
+            <div class="loading-section" id="loadingSection" style="display: none;">
+                <div class="spinner"></div>
+                <p>AI создает рецепты...</p>
+            </div>
+
+            <!-- Результаты -->
+            <div class="results-section" id="resultsSection" style="display: none;">
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="switchTab('analysis')">🍽️ Рецепты</button>
+                    <button class="tab-btn" onclick="switchTab('social')">📱 Контент для блогера</button>
+                </div>
+
+                <div class="tab-content">
+                    <div id="analysisTab" class="tab-pane active">
+                        <div class="result-card">
+                            <h3>🍳 Сгенерированные рецепты</h3>
+                            <div id="analysisContent"></div>
+                        </div>
+                    </div>
+                    
+                    <div id="socialTab" class="tab-pane">
+                        <div class="result-card">
+                            <h3>📸 Контент для соцсетей</h3>
+                            <div id="socialContent"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-secondary" onclick="resetApp()">Создать новые рецепты</button>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Powered by Yandex Cloud AI | Генератор рецептов из ингредиентов</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

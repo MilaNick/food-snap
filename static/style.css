@@ -1,0 +1,431 @@
+/* Reset и базовые стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    line-height: 1.47059;
+    font-weight: 400;
+    letter-spacing: -0.022em;
+    color: #1d1d1f;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px 24px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+h1 {
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -0.003em;
+    margin-bottom: 12px;
+    color: white;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.subtitle {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 400;
+}
+
+/* Upload Section */
+.upload-section {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.upload-area {
+    background: white;
+    border-radius: 24px;
+    padding: 40px 32px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.upload-area:hover {
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+.upload-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: #25e742;
+    text-shadow: 0 2px 8px rgba(37, 231, 66, 0.3);
+    opacity: .7;
+}
+
+.upload-area h3 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #1d1d1f;
+}
+
+.upload-area p {
+    color: #86868b;
+    font-size: 16px;
+    margin-bottom: 24px;
+}
+
+/* Input */
+#ingredientsInput {
+    width: 100%;
+    height: 80px;
+    padding: 16px;
+    border: 2px solid #f0f0f0;
+    border-radius: 16px;
+    font-size: 16px;
+    font-family: inherit;
+    margin: 20px 0;
+    resize: vertical;
+    transition: all 0.3s ease;
+    background: #fbfbfd;
+}
+
+#ingredientsInput:focus {
+    outline: none;
+    border-color: #32d74b;
+    box-shadow: 0 0 0 3px rgba(50, 215, 75, 0.2);
+    background: white;
+}
+
+/* Buttons */
+.btn-primary {
+    background: linear-gradient(135deg, #32d74b, #00c853);
+    color: white;
+    border: none;
+    padding: 16px 32px;
+    border-radius: 16px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 8px 0;
+    box-shadow: 0 4px 15px rgba(50, 215, 75, 0.3);
+}
+
+.btn-primary:hover {
+    box-shadow: 0 6px 20px rgba(50, 215, 75, 0.4);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #32d74b;
+    border: 2px solid #32d74b;
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.btn-secondary:hover {
+    background: #32d74b;
+    color: white;
+    transform: translateY(-1px);
+}
+
+/* Examples */
+.examples-container {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.examples-label {
+    color: #86868b;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.examples-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Loading */
+.loading-section {
+    text-align: center;
+    padding: 40px 20px 80px;
+    transition: all 0.4s ease;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #f0f0f0;
+    border-top: 3px solid #32d74b;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 40px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-section p {
+    font-size: 18px;
+    color: #86868b;
+}
+
+/* Results */
+.results-section {
+    background: white;
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    max-width: 100%;
+    height: 66vh;
+    box-sizing: border-box;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tabs {
+    display: flex;
+    background: #f8f9fa;
+    border-radius: 16px;
+    padding: 4px;
+    margin-bottom: 24px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    background: transparent;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    color: #86868b;
+}
+
+.tab-btn.active {
+    background: white;
+    color: #32d74b;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tab-pane {
+    display: none;
+    animation: fadeIn 0.4s ease;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.tab-content {
+    max-height: 45vh;
+    overflow-y: hidden;
+}
+
+.result-card {
+    background: #fbfbfd;
+    border-radius: 16px;
+    padding: 24px;
+    border: 1px solid #f0f0f0;
+    margin-bottom: 16px;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Для карточки контента блогера */
+#socialTab .result-card {
+    height: 42vh;
+    overflow-y: auto;
+}
+
+#socialContent {
+    max-height: none;
+    overflow-y: visible;
+}
+/* Used Ingredients */
+.used-ingredients {
+    background: linear-gradient(135deg, #e8f5e8, #f0f9ff);
+    padding: 16px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    border-left: 4px solid #32d74b;
+}
+
+.used-ingredients h4 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #1d1d1f;
+}
+
+.used-ingredients p {
+    color: #666;
+    font-size: 15px;
+    margin: 0;
+}
+
+/* Content Styling */
+#analysisContent, #socialContent {
+    font-size: 15px;
+    line-height: 1.5;
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-height: 25vh;
+    overflow-y: auto;
+}
+
+#socialContent {
+    max-height: 33vh; 
+}
+
+#analysisContent h4, #socialContent h4 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 20px 0 12px 0;
+    color: #1d1d1f;
+}
+
+#analysisContent div, #socialContent div {
+    margin: 8px 0;
+}
+
+#analysisContent p, #socialContent p {
+    margin: 12px 0;
+}
+
+/* Action Buttons */
+.action-buttons {
+    text-align: center;
+    margin-top: 24px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+}
+
+/* Scrollbar styling */
+#analysisContent::-webkit-scrollbar,
+#socialContent::-webkit-scrollbar {
+    width: 8px;
+}
+
+#analysisContent::-webkit-scrollbar-track,
+#socialContent::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+#analysisContent::-webkit-scrollbar-thumb,
+#socialContent::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #25e742, #32d74b);
+    border-radius: 4px;
+}
+
+#analysisContent::-webkit-scrollbar-thumb:hover,
+#socialContent::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #1ed138, #28a745);
+}
+
+/* Для Firefox */
+#analysisContent,
+#socialContent {
+    scrollbar-width: thin;
+    scrollbar-color: #32d74b #f1f1f1;
+}
+
+/* Responsive */
+@media (max-width: 734px) {
+    .container {
+        padding: 20px 16px;
+    }
+    
+    h1 {
+        font-size: 32px;
+    }
+    
+    .subtitle {
+        font-size: 16px;
+    }
+    
+    .upload-area {
+        padding: 30px 20px;
+    }
+    
+    .upload-icon {
+        font-size: 40px;
+    }
+    
+    .upload-area h3 {
+        font-size: 20px;
+    }
+    
+    .result-card {
+        padding: 20px 16px;
+    }
+    
+    .examples-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .examples-buttons .btn-secondary {
+        width: 180px;
+    }
+    
+    .results-section {
+        padding: 24px 16px;
+        margin-top: 16px;
+    }
+}
+
+/* Smooth transitions */
+.upload-section, .loading-section, .results-section {
+    animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
