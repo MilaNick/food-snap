@@ -56,9 +56,9 @@ def history():
         analyses = FoodAnalysis.query.order_by(FoodAnalysis.timestamp.desc()).limit(10).all()
         return jsonify([{
             'id': a.id,
-            'ingredients': a.ingredients[:100] + '...' if len(a.ingredients) > 100 else a.ingredients,
+            'ingredients': a.ingredients,  # ← ПОЛНЫЙ ТЕКСТ
             'timestamp': a.timestamp.isoformat(),
-            'analysis_preview': a.analysis_result[:100] + '...' if a.analysis_result else ''
+            'analysis_result': a.analysis_result  # ← ПОЛНЫЙ ТЕКСТ
         } for a in analyses])
     except Exception as e:
         return jsonify({'error': str(e)}), 500

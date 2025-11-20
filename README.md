@@ -103,11 +103,8 @@ DATABASE_URL=sqlite:///instance/foodsnap.db
     4. Создайте API-ключ в разделе "Service accounts"
     5. Скопируйте ID каталога и API-ключ в файл .env
 
-#### 6. Инициализация базы данных
-```bash
-python -c "from app import app, db; app.app_context().push(); db.create_all()"
-```
-#### 7. Запуск приложения
+
+#### 6. Запуск приложения
 ```bash
 python app.py
 ```  
