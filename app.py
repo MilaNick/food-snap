@@ -10,8 +10,7 @@ db.init_app(app)
 os.makedirs('instance', exist_ok=True)
 
 with app.app_context():
-    db.drop_all()
-    db.create_all()
+    db.create_all()  # Только создание таблиц, без удаления данных
 
 @app.route('/')
 def home():
@@ -30,7 +29,12 @@ def analyze_ingredients_route():
         if not ingredients:
             return jsonify({'error': 'Введите ингредиенты'}), 400
         
-        # Убрана проверка на минимальное количество ингредиентов
+        if len(ingredients) < 3:
+            return jsonify({'error': 'Введите хотя бы один ингредиент'}), 400
+        
+        # Экранирование потенциально опасных символов
+        ingredients = ingredients.replace('<', '&lt;').replace('>', '&gt;')
+        
         recipes_analysis = analyze_ingredients(ingredients)
         social_content = generate_social_content(recipes_analysis)
         
@@ -56,9 +60,10 @@ def history():
         analyses = FoodAnalysis.query.order_by(FoodAnalysis.timestamp.desc()).limit(10).all()
         return jsonify([{
             'id': a.id,
-            'ingredients': a.ingredients,  # ← ПОЛНЫЙ ТЕКСТ
+            'ingredients': a.ingredients,  # Полный текст без ограничений
             'timestamp': a.timestamp.isoformat(),
-            'analysis_result': a.analysis_result  # ← ПОЛНЫЙ ТЕКСТ
+            'analysis_result': a.analysis_result,  # Полный текст рецептов
+            'social_content': a.social_content  # Добавлен контент для соцсетей
         } for a in analyses])
     except Exception as e:
         return jsonify({'error': str(e)}), 500

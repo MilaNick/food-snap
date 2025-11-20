@@ -32,12 +32,12 @@ class FoodSnapApp {
                 body: JSON.stringify({ ingredients: ingredients })
             });
 
+            const result = await response.json();
+
             if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || 'Ошибка при генерации рецептов');
+                throw new Error(result.error || 'Ошибка при генерации рецептов');
             }
 
-            const result = await response.json();
             this.showResults(result);
             
         } catch (error) {
@@ -90,8 +90,14 @@ class FoodSnapApp {
         
         ingredientsHeader.innerHTML = `
             <h4>🎯 Использованные ингредиенты:</h4>
-            <p>${ingredients}</p>
+            <p>${this.escapeHtml(ingredients)}</p>
         `;
+    }
+
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
     }
 
     formatRecipes(recipes) {
@@ -99,27 +105,27 @@ class FoodSnapApp {
             line = line.trim();
             
             if (line.startsWith('📋 РЕЦЕПТ')) {
-                return `<h4 style="margin: 25px 0 15px 0; color: #1d1d1f; padding-bottom: 8px; border-bottom: 2px solid #007aff;">${line}</h4>`;
+                return `<h4 style="margin: 25px 0 15px 0; color: #1d1d1f; padding-bottom: 8px; border-bottom: 2px solid #007aff;">${this.escapeHtml(line)}</h4>`;
             }
             else if (line.startsWith('🍽️') || line.startsWith('⏱️') || line.startsWith('📖')) {
-                return `<div style="margin: 12px 0; font-weight: 500; color: #007aff;">${line}</div>`;
+                return `<div style="margin: 12px 0; font-weight: 500; color: #007aff;">${this.escapeHtml(line)}</div>`;
             }
             else if (line.startsWith('- ') || line.startsWith('• ')) {
                 return `<div style="margin: 6px 0; padding-left: 20px; position: relative;">
-                        <span style="position: absolute; left: 8px;">•</span>${line.substring(2)}</div>`;
+                        <span style="position: absolute; left: 8px;">•</span>${this.escapeHtml(line.substring(2))}</div>`;
             }
             else if (line.match(/^\d+\./)) {
                 return `<div style="margin: 8px 0; padding-left: 20px; position: relative;">
-                        <span style="position: absolute; left: 0; font-weight: 500;">${line.split('.')[0]}.</span>${line.substring(line.indexOf('.') + 1)}</div>`;
+                        <span style="position: absolute; left: 0; font-weight: 500;">${line.split('.')[0]}.</span>${this.escapeHtml(line.substring(line.indexOf('.') + 1))}</div>`;
             }
             else if (line.startsWith('💡 СОВЕТЫ:')) {
-                return `<h4 style="margin: 25px 0 15px 0; color: #1d1d1f; padding: 10px; background: #fff3cd; border-radius: 8px; border-left: 4px solid #ffc107;">${line}</h4>`;
+                return `<h4 style="margin: 25px 0 15px 0; color: #1d1d1f; padding: 10px; background: #fff3cd; border-radius: 8px; border-left: 4px solid #ffc107;">${this.escapeHtml(line)}</h4>`;
             }
             else if (line.trim() === '') {
                 return '<div style="height: 15px;"></div>';
             }
             else {
-                return `<p style="margin: 8px 0;">${line}</p>`;
+                return `<p style="margin: 8px 0;">${this.escapeHtml(line)}</p>`;
             }
         }).join('');
     }
@@ -129,32 +135,32 @@ class FoodSnapApp {
             line = line.trim();
             
             if (line.startsWith('📸') || line.startsWith('🎥') || line.startsWith('📝') || line.startsWith('🔍')) {
-                return `<h4 style="margin: 25px 0 15px 0; color: #1d1d1f; padding-bottom: 8px; border-bottom: 2px solid #28a745;">${line}</h4>`;
+                return `<h4 style="margin: 25px 0 15px 0; color: #1d1d1f; padding-bottom: 8px; border-bottom: 2px solid #28a745;">${this.escapeHtml(line)}</h4>`;
             }
             else if (line.startsWith('**Заголовок:**') || line.startsWith('**Тема:**') || line.startsWith('**Сценарий:**') || line.startsWith('**Тренды:**') || line.startsWith('**Введение:**')) {
                 const parts = line.split(':**');
                 if (parts.length > 1) {
-                    return `<div style="margin: 12px 0;"><strong>${parts[0]}:**</strong>${parts[1]}</div>`;
+                    return `<div style="margin: 12px 0;"><strong>${this.escapeHtml(parts[0])}:**</strong>${this.escapeHtml(parts[1])}</div>`;
                 }
             }
             else if (line.startsWith('**Хештеги:**')) {
                 const parts = line.split(':**');
                 if (parts.length > 1) {
-                    return `<div style="margin: 12px 0;"><strong>${parts[0]}:**</strong><span style="color: #007aff;">${parts[1]}</span></div>`;
+                    return `<div style="margin: 12px 0;"><strong>${this.escapeHtml(parts[0])}:**</strong><span style="color: #007aff;">${this.escapeHtml(parts[1])}</span></div>`;
                 }
             }
             else if (line.startsWith('- ')) {
                 return `<div style="margin: 6px 0; padding-left: 20px; position: relative;">
-                        <span style="position: absolute; left: 8px;">•</span>${line.substring(2)}</div>`;
+                        <span style="position: absolute; left: 8px;">•</span>${this.escapeHtml(line.substring(2))}</div>`;
             }
             else if (line.trim() === '') {
                 return '<div style="height: 15px;"></div>';
             }
             else if (line.includes('**') && line.includes('**')) {
-                return `<p style="margin: 12px 0; font-weight: 500;">${line.replace(/\*\*/g, '')}</p>`;
+                return `<p style="margin: 12px 0; font-weight: 500;">${this.escapeHtml(line.replace(/\*\*/g, ''))}</p>`;
             }
             else {
-                return `<p style="margin: 8px 0;">${line}</p>`;
+                return `<p style="margin: 8px 0;">${this.escapeHtml(line)}</p>`;
             }
         }).join('');
     }
@@ -164,26 +170,26 @@ class FoodSnapApp {
         document.getElementById('loadingSection').style.display = 'none';
         document.getElementById('resultsSection').style.display = 'none';
         
-        switchTab('analysis');
+        this.switchTab('analysis');
         
         const ingredientsHeader = document.querySelector('.used-ingredients');
         if (ingredientsHeader) {
             ingredientsHeader.remove();
         }
     }
-}
 
-function switchTab(tabName) {
-    document.querySelectorAll('.tab-pane').forEach(tab => {
-        tab.classList.remove('active');
-    });
-    
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.remove('active');
-    });
-    
-    document.getElementById(tabName + 'Tab').classList.add('active');
-    event.target.classList.add('active');
+    switchTab(tabName) {
+        document.querySelectorAll('.tab-pane').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        
+        document.getElementById(tabName + 'Tab').classList.add('active');
+        event.target.classList.add('active');
+    }
 }
 
 function analyzeIngredients() {
@@ -192,6 +198,10 @@ function analyzeIngredients() {
 
 function resetApp() {
     window.foodSnapApp.reset();
+}
+
+function switchTab(tabName) {
+    window.foodSnapApp.switchTab(tabName);
 }
 
 function fillExample(exampleNumber) {
